@@ -33,8 +33,8 @@
 			bindings = <
 				// buttons
 				&ltmkp LAYER_SNIPE ENTER  &ltmkp LAYER_SCROLL ESC
-				&mkp MCLK                 &kp DELETE
-				&mkp LCLK                 &mkp RCLK
+				&mkp MCLK                 &mkp RCLK
+				&mkp LCLK                 &kp  DELETE
 				&ltm LAYER_EXTRAS MB4     &ltm LAYER_DEVICE MB5
 
 				// rotary encoders
