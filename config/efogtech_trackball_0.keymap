@@ -18,7 +18,10 @@
 #define LAYER_USER 5
 
 #define SCROLL_MULTIPLIER 1
-#define SCROLL_DIVISOR 500000
+#define SCROLL_DIVISOR 3
+
+#define TWIST_SCROLL_MULTIPLIER 1
+#define TWIST_SCROLL_DIVISOR 30
 
 #define SNIPE_MULTIPLIER 1
 #define SNIPE_DIVISOR 4
@@ -115,6 +118,9 @@
 	};
 
 	trackball {
+        input-processors = <&zip_scroll_scaler TWIST_SCROLL_MULTIPLIER TWIST_SCROLL_DIVISOR>;
+
+        /* Back to original: trackball scroll only when on the Scroll layer */
 		scroll {
 			layers = <LAYER_SCROLL>;
 			input-processors = <&zip_xy_scaler SCROLL_MULTIPLIER SCROLL_DIVISOR>, <&zip_axis_clamper>,
