@@ -5,14 +5,38 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/adaptive_feedback.h>
 #include <dt-bindings/zmk/bistable_behavior.h>
+// #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/p2sm.h>
 
+#ifdef  LAYER_DEFAULT
+#undef  LAYER_DEFAULT
+#endif
 #define LAYER_DEFAULT  0
+
+#ifdef  LAYER_DEVICE
+#undef  LAYER_DEVICE
+#endif
 #define LAYER_DEVICE   1
+
+#ifdef  LAYER_BLE
+#undef  LAYER_BLE
+#endif
 #define LAYER_BLE      2
+
+#ifdef  LAYER_SNIPE
+#undef  LAYER_SNIPE
+#endif
 #define LAYER_SNIPE    3
+
+#ifdef  LAYER_SETTINGS
+#undef  LAYER_SETTINGS
+#endif
 #define LAYER_SETTINGS 4
-#define LAYER_USER     5  
+
+#ifdef  LAYER_USER
+#undef  LAYER_USER
+#endif
+#define LAYER_USER     5
 
 #define TWIST_MULTIPLIER   1
 #define TWIST_DIVISOR      10
@@ -24,123 +48,127 @@
 #define SNIPE_DIVISOR      4
 
 / {
-	keymap {
-		compatible = "zmk,keymap";
+    keymap {
+        compatible = "zmk,keymap";
 
-		layer_default {
-			display-name = "Default";
-			DECLARE_ENCODERS;
-			bindings = <
-				// buttons
-				&ltmkp LAYER_SETTINGS ENTER  	&ltmkp LAYER_DEVICE ESC
+        layer_default {
+            display-name = "Default";
+            DECLARE_ENCODERS;
+            bindings = <
+                // buttons
+                &ltmkp LAYER_SETTINGS ENTER       &ltmkp LAYER_DEVICE ESC
 
-				&mkp MCLK                 		&mkp RCLK
-				&mkp LCLK                 		&kp  DELETE
+                &mkp MCLK                         &mkp RCLK
+                &mkp LCLK                         &kp  DELETE
 
-				&ltm LAYER_SNIPE  MB4     		&ltm LAYER_BLE MB5
+                &ltm LAYER_SNIPE  MB4             &ltm LAYER_BLE MB5
 
-				// rotary encoders
-				&kp C_VOL_UP              		&kp LC(TAB)
-				&kp C_VOL_DN              		&kp LC(LS(TAB))
-			>;
-		};
+                // rotary encoders
+                &kp C_VOL_UP                      &kp LC(TAB)
+                &kp C_VOL_DN                      &kp LC(LS(TAB))
+            >;
+        };
 
-		layer_device {
-			display-name = "Device";
-			DECLARE_ENCODERS;
-			bindings = <
-				&soft_off      					&trans
-				
-				&trans         					&bt BT_CLR
-				&studio_unlock 					&trans
-				             
-				&trans         					&trans    
+        layer1 {
+            display-name = "Device";
+            DECLARE_ENCODERS;
+            bindings = <
+                &soft_off                       &trans
 
-				&kp C_VOL_UP                    &kp LC(TAB)
-				&kp C_VOL_DN                    &kp LC(LS(TAB))
-			>;
-		};
+                &trans                          &bt BT_CLR
+                &studio_unlock                  &trans
 
-		layer_ble {
-			display-name = "BLE";
-			DECLARE_ENCODERS;
-			bindings = <
-				&bt BT_SEL 1   					&bt BT_SEL 2
+                &trans                          &trans
 
-				&bt BT_SEL 0       				&bt BT_SEL 3
-				&bt BT_PRV           			&bt BT_SEL 4
-				    
-				&bt BT_NXT     					&trans
+                &kp C_VOL_UP                    &kp LC(TAB)
+                &kp C_VOL_DN                    &kp LC(LS(TAB))
+            >;
+        };
 
-				&kp C_VOL_UP                    &kp LC(TAB)
-				&kp C_VOL_DN                    &kp LC(LS(TAB))
-			>;
-		};
+        layer2 {
+            display-name = "BLE";
+            DECLARE_ENCODERS;
+            bindings = <
+                &bt BT_SEL 1                    &bt BT_SEL 2
 
-		layer_snipe {
-			display-name = "Snipe";
-			DECLARE_ENCODERS;
-			bindings = <
-			    &trans        					&rrl 1
+                &bt BT_SEL 0                    &bt BT_SEL 3
+                &bt BT_PRV                      &bt BT_SEL 4
 
-			    &sens   P2SM_INC 1				&scrlsens	P2SM_INC 1
-			    &sens   P2SM_DEC 1				&scrlsens 	P2SM_DEC 1
-				       
-			    &trans          				&trans
+                &bt BT_NXT                      &trans
 
-				&sens P2SM_DEC 1                &scrlsens P2SM_INC 1
-				&sens P2SM_INC 1                &scrlsens P2SM_DEC 1
-			>;
-		};
+                &kp C_VOL_UP                    &kp LC(TAB)
+                &kp C_VOL_DN                    &kp LC(LS(TAB))
+            >;
+        };
 
-		layer_setting {
-			display-name = "Setting";
-			DECLARE_ENCODERS;
-			bindings = <
-				&trans           				&rgb_off
+        layer3 {
+            display-name = "Snipe";
+            DECLARE_ENCODERS;
+            bindings = <
+                &trans                          &rrl 1
 
-				&rgb_tog         				&trans
-				&rgb_ug RGB_EFF					&trans
-				    
-				&trans           				&trans
+                &sens   P2SM_INC 1              &scrlsens    P2SM_INC 1
+                &sens   P2SM_DEC 1              &scrlsens    P2SM_DEC 1
 
-				&kp LEFT         				&kp RIGHT
-				&kp RIGHT        				&kp LEFT
-			>;
-		};
+                &trans                          &trans
 
-		layer5 {
-			display-name = "User";
-			DECLARE_ENCODERS;
-			bindings = <
-				&trans        &trans
-				&trans        &trans
-				&trans        &trans
-				&trans        &trans
+                &sens P2SM_DEC 1                &scrlsens P2SM_INC 1
+                &sens P2SM_INC 1                &scrlsens P2SM_DEC 1
+            >;
+        };
 
-				&kp C_VOL_UP  &kp LC(TAB)
-				&kp C_VOL_DN  &kp LC(LS(TAB))
-		    >;
-		};
-	};
+        layer4 {
+            display-name = "Setting";
+            DECLARE_ENCODERS;
+            bindings = <
+                // &trans                           &rgb_ug RBG_OFF
+                &trans                           &trans
+                &trans                           &trans
 
-	trackball {
-		input-processors = <&zip_scroll_scaler TWIST_MULTIPLIER TWIST_DIVISOR>,
-						   <&zip_pointer_accel>, <&zip_scroll_accel>,
-						   <&zip_rotate_pointer>, <&zip_rotate_scroll>,
-		                   <&zip_ble_report_rate_limit>;
+                &trans                           &trans
+                &trans                           &trans
+                // &rgb_ug RGB_TOG                  &trans
+                // &rgb_ug RGB_EFF                  &trans
 
-		scroll {
-			layers = <LAYER_USER>;
-			input-processors = <&zip_xy_scaler SCROLL_MULTIPLIER SCROLL_DIVISOR>, <&zip_axis_clamper>,
-							   <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
-							   <&zip_dragscroll_accel>, <&zip_rotate_scroll>, <&zip_ble_report_rate_limit>;
-		};
+                &trans                           &trans
 
-		snipe {
-			layers = <LAYER_SNIPE>;
-			input-processors = <&zip_xy_scaler SNIPE_MULTIPLIER SNIPE_DIVISOR>,
-							   <&zip_rotate_pointer>, <&zip_rotate_scroll>, <&zip_ble_report_rate_limit>;
-		};
-	};
+                &kp LEFT                         &kp RIGHT
+                &kp RIGHT                        &kp LEFT
+            >;
+        };
+
+        layer5 {
+            display-name = "User";
+            DECLARE_ENCODERS;
+            bindings = <
+                &trans        &trans
+                &trans        &trans
+                &trans        &trans
+                &trans        &trans
+
+                &kp C_VOL_UP                    &kp LC(TAB)
+                &kp C_VOL_DN                    &kp LC(LS(TAB))
+            >;
+        };
+    };
+
+    trackball {
+        input-processors = <&zip_scroll_scaler TWIST_MULTIPLIER TWIST_DIVISOR>,
+                           <&zip_pointer_accel>, <&zip_scroll_accel>,
+                           <&zip_rotate_pointer>, <&zip_rotate_scroll>,
+                           <&zip_ble_report_rate_limit>;
+
+        scroll {
+            layers = <LAYER_USER>;
+            input-processors = <&zip_xy_scaler SCROLL_MULTIPLIER SCROLL_DIVISOR>, <&zip_axis_clamper>,
+                               <&zip_xy_to_scroll_mapper>, <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
+                               <&zip_dragscroll_accel>, <&zip_rotate_scroll>, <&zip_ble_report_rate_limit>;
+        };
+
+        snipe {
+            layers = <LAYER_SNIPE>;
+            input-processors = <&zip_xy_scaler SNIPE_MULTIPLIER SNIPE_DIVISOR>,
+                               <&zip_rotate_pointer>, <&zip_rotate_scroll>, <&zip_ble_report_rate_limit>;
+        };
+    };
 };
